@@ -21,7 +21,10 @@ const Home = () => {
             Create Account
           </Text>
         </Pressable>
-        <Pressable className="bg-primary justify-center items-center p-4 border-white rounded-full border-2">
+        <Pressable
+          onPress={() => navigation.replace("SignIn")}
+          className="bg-primary justify-center items-center p-4 border-white rounded-full border-2"
+        >
           <Text className="text-xl font-bold color-[#80F17E]">Sign In</Text>
         </Pressable>
       </View>

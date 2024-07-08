@@ -36,7 +36,7 @@ const Onboarding = () => {
           <Text className="text-[#80F17E] text-lg">Skip</Text>
         </TouchableOpacity>
       </View>
-      <View className="w-full h-1/2 justify-end">
+      <View className="w-full h-1/2 justify-end p-2">
         <Image className="w-full h-60" source={images[currentIndex]} />
       </View>
       <View className="">
