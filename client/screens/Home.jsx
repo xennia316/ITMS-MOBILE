@@ -12,7 +12,9 @@ const Home = () => {
       <View style={styles.imageContainer}>
         <Image source={image} style={styles.image} />
       </View>
-      <Text style={styles.text}>Get Started!</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Get Started!</Text>
+      </View>
       <View style={styles.buttonsContainer}>
         <Pressable
           onPress={() => navigation.replace("SignUp")}
@@ -39,13 +41,14 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12,
-    paddingHorizontal: 12,
+    paddingVertical: "15%",
+    paddingHorizontal: "5%", // Adjust horizontal padding if needed
     flex: 1,
     backgroundColor: "#1C2129", // Assuming you have a primary color defined
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: 20,
   },
   imageContainer: {
     flexDirection: "column",
@@ -56,7 +59,13 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "auto",
-    height: "40%",
+    height: "50%",
+  },
+  textContainer: {
+    height: "20%",
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   text: {
     color: "white",
@@ -85,10 +94,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  buttonPrimary: {
+    backgroundColor: "#1C2129",
+    borderWidth: 2,
+    borderRadius: 100,
+    borderColor: "white",
+  },
   buttonPrimaryText: {
-    color: "#1C2129", // Assuming you have this color defined
+    color: "#1C2129",
   },
   buttonSignInText: {
-    color: "#80F17E", // Assuming you have this color defined
+    color: "#80F17E",
   },
 });
