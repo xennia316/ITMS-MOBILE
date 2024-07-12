@@ -17,6 +17,10 @@ module.exports = {
       ...theme("colors"),
       secondary: "#80F17E",
     }),
+    width: {
+      "9/20": "45%",
+      "12/25": "48%",
+    },
   },
   plugins: [],
 };
