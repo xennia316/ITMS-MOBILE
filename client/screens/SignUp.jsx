@@ -18,8 +18,8 @@ import passwordIcon from "../assets/icons/password.png";
 const SignUp = () => {
 	const navigation = useNavigation();
 	return (
-		<ScrollView className="flex-1 bg-primary">
-			<View className="h-full py-14 px-8 flex-1 flex-col items-center gap-y-2">
+		<ScrollView className="h-screen flex-1 bg-primary">
+			<View className="h-full py-14 px-8 flex-1 flex-col items-center">
 				<View className="flex-row w-full items-center justify-between pt-6 pb-6">
 					<Pressable onPress={() => navigation.navigate("Home")}>
 						<View className="w-[24] h-[24] items-center justify-center">
@@ -131,7 +131,7 @@ const SignUp = () => {
 						</View>
 					</View>
 				</View>
-				<View className="w-full flex-1 pt-4 justify-end">
+				<View className="w-full flex-1 pt-8 justify-end">
 					<Pressable
 						onPress={() => navigation.replace("SignIn")}
 						className="bg-white justify-center items-center p-4 rounded-full"
