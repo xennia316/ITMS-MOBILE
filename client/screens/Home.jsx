@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column",
     justifyContent: "flex-end",
-    marginBottom: 0, // Adjust if needed
+    gap: 4,
   },
   button: {
     backgroundColor: "white",
