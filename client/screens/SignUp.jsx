@@ -19,7 +19,7 @@ const SignUp = () => {
 	const navigation = useNavigation();
 	return (
 		<ScrollView className="flex-1 bg-primary">
-			<View className="h-full py-14 px-8 flex-1 flex-col items-center gap-y-4">
+			<View className="h-full py-14 px-8 flex-1 flex-col items-center gap-y-2">
 				<View className="flex-row w-full items-center justify-between pt-6 pb-6">
 					<Pressable onPress={() => navigation.navigate("Home")}>
 						<View className="w-[24] h-[24] items-center justify-center">
@@ -74,6 +74,20 @@ const SignUp = () => {
 						</View>
 					</View>
 					<View className="flex-col gap-y-2">
+						<Text className="text-white text-xl">License Number</Text>
+						<View className="flex-row border-gray-700 border-2 rounded-xl p-2 items-center">
+							<View className=" w-[24] h-[24]">
+								<Image className="w-full h-full" source={flag} />
+							</View>
+							<TextInput
+								placeholder="SW123FB"
+								className="text-lg color-white pl-2 flex-1"
+								placeholderTextColor="#676666"
+								keyboardType="phone-pad"
+							/>
+						</View>
+					</View>
+					<View className="flex-col gap-y-2">
 						<Text className="text-white text-xl">Phone Number</Text>
 						<View className="flex-row border-gray-700 border-2 rounded-xl p-2 items-center">
 							<View className=" w-[24] h-[24]">
@@ -117,7 +131,7 @@ const SignUp = () => {
 						</View>
 					</View>
 				</View>
-				<View className="w-full flex-1 pt-4 h-48 justify-end">
+				<View className="w-full flex-1 pt-4 justify-end">
 					<Pressable
 						onPress={() => navigation.replace("SignIn")}
 						className="bg-white justify-center items-center p-4 rounded-full"
