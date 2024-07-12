@@ -69,7 +69,7 @@ const SignIn = () => {
 				</View>
 				<View className="w-full flex-1 pt-4 h-1/3 justify-end">
 					<Pressable
-						onPress={() => navigation.replace("SignUp")}
+						onPress={() => navigation.replace("Landing")}
 						className="bg-white justify-center items-center p-4 rounded-full"
 					>
 						<Text className="text-xl font-bold color-[#1C2129]">
