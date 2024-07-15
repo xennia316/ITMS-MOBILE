@@ -133,7 +133,7 @@ const SignUp = () => {
 						onPress={() => navigation.replace("SignIn")}
 						style={styles.submitButton}
 					>
-						<Text className="text-xl font-bold color-[#1C2129]">
+						<Text className="text-xl font-semibold color-[#1C2129]">
 							Continue to Sign In
 						</Text>
 					</Pressable>
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
 	},
 	submitText: {
 		fontSize: 16,
-		fontWeight: "bold",
+		fontWeight: "semibold",
 		color: "#1C2129",
 	},
 });
