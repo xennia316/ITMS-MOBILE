@@ -5,69 +5,63 @@ import {
   Image,
   Pressable,
   TextInput,
+  StyleSheet,
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import backIcon from "../assets/icons/arrowleft.png";
 import userIcon from "../assets/icons/Vector.png";
-import infoIcon from "../assets/icons/info-circle.png";
+import flag from "../assets/icons/flag.png";
+import emailIcon from "../assets/icons/email.png";
 import passwordIcon from "../assets/icons/password.png";
 
 const SignIn = () => {
   const navigation = useNavigation();
   return (
-    <ScrollView className="flex-1 bg-primary">
-      <View className="h-full py-14 px-8 flex-1 flex-col items-center gap-y-4">
-        <View className="flex-row w-full items-center justify-between pt-6 pb-6">
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.container}>
+        <View style={styles.header}>
           <Pressable onPress={() => navigation.navigate("Home")}>
-            <View className="w-[24] h-[24] items-center justify-center">
-              <Image className="h-full w-full" source={backIcon} />
+            <View style={styles.backButton}>
+              <Image style={styles.backButton} source={backIcon} />
             </View>
           </Pressable>
-          <Text className="font-semibold color-white text-4xl text-center">
-            Sign In
-          </Text>
-          <View className="w-8 h-8"></View>
+          <Text style={styles.title}>Sign In</Text>
+          <View style={styles.backButton}></View>
         </View>
-        <View className="w-full flex-col gap-y-4">
-          <View className="flex-col gap-y-2">
-            <Text className="text-white text-xl">Username</Text>
-            <View className="flex-row border-gray-700 border-2 rounded-xl p-2 items-center">
-              <View className=" w-[14] h-[20]">
-                <Image className="w-full h-full" source={userIcon} />
+        <View style={styles.contentContainer}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputFieldText}>Username</Text>
+            <View style={styles.inputField}>
+              <View style={styles.iconContainer}>
+                <Image style={styles.icon} source={userIcon} />
               </View>
               <TextInput
                 placeholder="Username"
-                className="text-lg color-white pl-2 flex-1"
+                style={styles.textInput}
                 placeholderTextColor="#676666"
               />
             </View>
           </View>
-          <View className="flex-col gap-y-2">
-            <Text className="text-white text-xl">Password</Text>
-            <View className="flex-row border-gray-700 border-2 rounded-xl p-2 items-center">
-              <View className=" w-[18] h-[20]">
-                <Image className="w-full h-full" source={passwordIcon} />
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputFieldText}>Password</Text>
+            <View style={styles.inputField}>
+              <View style={styles.iconContainer}>
+                <Image style={styles.icon} source={passwordIcon} />
               </View>
               <TextInput
                 placeholder="Password"
-                className="text-lg color-white pl-2 flex-1"
+                style={styles.textInput}
                 placeholderTextColor="#676666"
                 type="password"
               />
             </View>
-            <View className="flex-row items-center gap-x-2">
-              <View className="w-[15] h-[15]">
-                <Image className="w-full h-full" source={infoIcon} />
-              </View>
-              <Text className="color-[#BABABA]">Forgot Password?</Text>
-            </View>
           </View>
         </View>
-        <View className="w-full flex-1 pt-4">
+        <View style={styles.buttonContainer}>
           <Pressable
-            onPress={() => navigation.replace("SignUp")}
-            className="bg-white justify-center items-center p-4 rounded-full"
+            onPress={() => navigation.replace("SignIn")}
+            style={styles.submitButton}
           >
             <Text className="text-xl font-bold color-[#1C2129]">
               Continue to Sign In
@@ -80,3 +74,107 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: "#1C2129",
+    flex: 1,
+  },
+  container: {
+    paddingVertical: "15%",
+    paddingHorizontal: "5%", // Adjust horizontal padding if needed
+    flex: 1,
+    backgroundColor: "#1C2129",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 20,
+    width: "100%",
+  },
+  header: {
+    width: "100%",
+    flexDirection: "row",
+    paddingTop: 16,
+    paddingBottom: 16,
+    justifyContent: "space-between",
+  },
+  backButton: {
+    width: 36,
+    height: 36,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 32,
+    color: "white",
+    fontWeight: "semibold",
+  },
+  contentContainer: {
+    flexDirection: "column",
+    width: "100%",
+    gap: 12,
+  },
+  inputContainer: {
+    gap: 4,
+
+    flexDirection: "column",
+  },
+  inputField: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#374151",
+    borderRadius: 10,
+    padding: 8,
+  },
+  inputFieldText: {
+    color: "white",
+    fontSize: 18,
+  },
+  textInput: {
+    fontSize: 18,
+    color: "white",
+    paddingLeft: 4,
+    flex: 1,
+  },
+  iconContainer: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  icon: {
+    height: "100%",
+    objectFit: "contain",
+  },
+  phoneNumberContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  countryCode: {
+    marginRight: 8,
+    fontSize: 18,
+    color: "white",
+  },
+  buttonContainer: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "20%",
+  },
+  submitButton: {
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 14,
+    borderRadius: 100,
+    marginVertical: 4,
+    width: "90%",
+  },
+  submitText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#1C2129",
+  },
+});
