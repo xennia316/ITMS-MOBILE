@@ -60,11 +60,11 @@ const SignIn = () => {
 				</View>
 				<View style={styles.buttonContainer}>
 					<Pressable
-						onPress={() => navigation.replace("SignIn")}
+						onPress={() => navigation.replace("LandingPage")}
 						style={styles.submitButton}
 					>
 						<Text className="text-xl font-semibold color-[#1C2129]">
-							Continue to Sign In
+							Continue to App
 						</Text>
 					</Pressable>
 				</View>
