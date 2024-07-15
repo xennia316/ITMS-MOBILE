@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	View,
 	Text,
@@ -11,61 +11,61 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import backIcon from "../assets/icons/arrowleft.png";
 import userIcon from "../assets/icons/Vector.png";
-import flag from "../assets/icons/flag.png";
-import emailIcon from "../assets/icons/email.png";
 import passwordIcon from "../assets/icons/password.png";
 
 const SignIn = () => {
 	const navigation = useNavigation();
+
+	const InputField = ({
+		label,
+		placeholder,
+		icon,
+		secureTextEntry = false,
+	}) => (
+		<View style={styles.inputContainer}>
+			<Text style={styles.inputFieldText}>{label}</Text>
+			<View style={styles.inputField}>
+				<View style={styles.iconContainer}>
+					<Image style={styles.icon} source={icon} />
+				</View>
+				<TextInput
+					placeholder={placeholder}
+					style={styles.textInput}
+					placeholderTextColor="#676666"
+					secureTextEntry={secureTextEntry}
+				/>
+			</View>
+		</View>
+	);
+
 	return (
-		<ScrollView style={styles.scrollView}>
+		<ScrollView
+			style={styles.scrollView}
+			contentContainerStyle={styles.scrollViewContent}
+		>
 			<View style={styles.container}>
 				<View style={styles.header}>
 					<Pressable onPress={() => navigation.navigate("Home")}>
-						<View style={styles.backButton}>
-							<Image style={styles.backButton} source={backIcon} />
-						</View>
+						<Image style={styles.backButton} source={backIcon} />
 					</Pressable>
 					<Text style={styles.title}>Sign In</Text>
 					<View style={styles.backButton}></View>
 				</View>
 				<View style={styles.contentContainer}>
-					<View style={styles.inputContainer}>
-						<Text style={styles.inputFieldText}>Username</Text>
-						<View style={styles.inputField}>
-							<View style={styles.iconContainer}>
-								<Image style={styles.icon} source={userIcon} />
-							</View>
-							<TextInput
-								placeholder="Username"
-								style={styles.textInput}
-								placeholderTextColor="#676666"
-							/>
-						</View>
-					</View>
-					<View style={styles.inputContainer}>
-						<Text style={styles.inputFieldText}>Password</Text>
-						<View style={styles.inputField}>
-							<View style={styles.iconContainer}>
-								<Image style={styles.icon} source={passwordIcon} />
-							</View>
-							<TextInput
-								placeholder="Password"
-								style={styles.textInput}
-								placeholderTextColor="#676666"
-								type="password"
-							/>
-						</View>
-					</View>
+					<InputField label="Username" placeholder="Username" icon={userIcon} />
+					<InputField
+						label="Password"
+						placeholder="Password"
+						icon={passwordIcon}
+						secureTextEntry
+					/>
 				</View>
 				<View style={styles.buttonContainer}>
 					<Pressable
 						onPress={() => navigation.replace("LandingPage")}
 						style={styles.submitButton}
 					>
-						<Text className="text-xl font-semibold color-[#1C2129]">
-							Continue to App
-						</Text>
+						<Text style={styles.submitText}>Continue to App</Text>
 					</Pressable>
 				</View>
 			</View>
@@ -79,46 +79,41 @@ const styles = StyleSheet.create({
 	scrollView: {
 		backgroundColor: "#1C2129",
 		flex: 1,
-		height: "100%",
+	},
+	scrollViewContent: {
+		flexGrow: 1,
+		justifyContent: "space-between",
 	},
 	container: {
 		paddingVertical: "15%",
-		paddingHorizontal: "5%", // Adjust horizontal padding if needed
+		paddingHorizontal: "5%",
 		flex: 1,
-		flexDirection: "column",
 		justifyContent: "space-between",
 		alignItems: "center",
-		gap: 20,
-		width: "100%",
-		height: "100%",
 	},
 	header: {
 		width: "100%",
 		flexDirection: "row",
-		paddingTop: 16,
-		paddingBottom: 16,
+		paddingVertical: 16,
 		justifyContent: "space-between",
+		alignItems: "center",
 	},
 	backButton: {
 		width: 36,
 		height: 36,
-		alignItems: "center",
-		justifyContent: "center",
 	},
 	title: {
 		fontSize: 32,
 		color: "white",
-		fontWeight: "semibold",
+		fontWeight: "600",
 	},
 	contentContainer: {
-		flexDirection: "column",
 		width: "100%",
 		gap: 12,
+		height: "80%",
 	},
 	inputContainer: {
-		gap: 4,
-
-		flexDirection: "column",
+		marginBottom: 16,
 	},
 	inputField: {
 		flexDirection: "row",
@@ -131,6 +126,7 @@ const styles = StyleSheet.create({
 	inputFieldText: {
 		color: "white",
 		fontSize: 18,
+		marginBottom: 4,
 	},
 	textInput: {
 		fontSize: 18,
@@ -142,27 +138,19 @@ const styles = StyleSheet.create({
 		width: 20,
 		height: 20,
 		marginRight: 8,
-		justifyContent: "center",
+		flexDirection: "row",
 		alignItems: "center",
+		justifyContent: "center",
 	},
 	icon: {
 		height: "100%",
-		objectFit: "contain",
-	},
-	phoneNumberContainer: {
-		flexDirection: "row",
-		alignItems: "center",
-	},
-	countryCode: {
-		marginRight: 8,
-		fontSize: 18,
-		color: "white",
+		resizeMode: "contain",
 	},
 	buttonContainer: {
 		width: "100%",
 		justifyContent: "flex-end",
 		alignItems: "center",
-		marginTop: "120%",
+		marginBottom: 16,
 	},
 	submitButton: {
 		backgroundColor: "white",
@@ -170,12 +158,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		padding: 14,
 		borderRadius: 100,
-		marginVertical: 4,
-		width: "100%",
+		width: "90%",
 	},
 	submitText: {
 		fontSize: 16,
-		fontWeight: "bold",
+		fontWeight: "600",
 		color: "#1C2129",
 	},
 });
