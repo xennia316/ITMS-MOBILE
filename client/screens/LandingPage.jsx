@@ -32,8 +32,15 @@ const LandingPage = () => {
 	}, [countdown]);
 
 	const entries = [
-		{ title: "Title 1", content: ["Entry 1.1", "Entry 1.2", "Entry 1.3"] },
-		{ title: "Title 2", content: ["Entry 2.1", "Entry 2.2", "Entry 2.3"] },
+		{
+			title: "Parameter",
+			content: [
+				"Number of cars",
+				"Speed of cars (kmph)",
+				"Distance between cars (metres)",
+			],
+		},
+		{ title: "Value", content: ["Entry 2.1", "Entry 2.2", "Entry 2.3"] },
 	];
 
 	return (
