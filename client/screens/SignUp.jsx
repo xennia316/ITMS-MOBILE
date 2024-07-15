@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	View,
 	Text,
@@ -17,11 +17,76 @@ import passwordIcon from "../assets/icons/password.png";
 
 const SignUp = () => {
 	const navigation = useNavigation();
+	const [username, setUsername] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
+	const [plateNumber, setPlateNumber] = useState("");
+	const [createPassword, setCreatePassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [errors, setErrors] = useState({});
+
+	const validateUsername = (username) => {
+		return !/\s/.test(username);
+	};
+
+	const validatePhoneNumber = (phoneNumber) => {
+		return /^6\d{8}$/.test(phoneNumber);
+	};
+
+	const validatePlateNumber = (plateNumber) => {
+		return /^[A-Z]{2}\d{3}[A-Z]{2}$/.test(plateNumber);
+	};
+
+	const validatePasswordMatch = (password, confirmPassword) => {
+		return password === confirmPassword;
+	};
+
+	const handleSubmit = () => {
+		const newErrors = {};
+
+		if (!validateUsername(username)) {
+			newErrors.username = "Username should not contain spaces.";
+		}
+
+		if (!validatePhoneNumber(phoneNumber)) {
+			newErrors.phoneNumber =
+				"Phone number should be nine digits starting with 6.";
+		}
+
+		if (!validatePlateNumber(plateNumber)) {
+			newErrors.plateNumber =
+				"Plate number should be 7 characters with two capital letters, three numbers, and two capital letters.";
+		}
+
+		if (!validatePasswordMatch(createPassword, confirmPassword)) {
+			newErrors.confirmPassword = "Passwords do not match.";
+		}
+
+		setErrors(newErrors);
+
+		if (Object.keys(newErrors).length === 0) {
+			const formData = {
+				username,
+				firstName,
+				lastName,
+				phoneNumber,
+				plateNumber,
+				createPassword,
+				confirmPassword,
+			};
+			console.log(formData);
+			navigation.replace("SignIn");
+		}
+	};
 
 	const InputField = ({
 		label,
 		placeholder,
 		icon,
+		value,
+		onChangeText,
+		error,
 		keyboardType = "default",
 		secureTextEntry = false,
 	}) => (
@@ -37,10 +102,31 @@ const SignUp = () => {
 					placeholderTextColor="#676666"
 					keyboardType={keyboardType}
 					secureTextEntry={secureTextEntry}
+					value={value}
+					onChangeText={onChangeText}
 				/>
 			</View>
+			{error && <Text style={styles.errorText}>{error}</Text>}
 		</View>
 	);
+
+	const handlePasswordChange = (text) => {
+		setCreatePassword(text);
+		setErrors((prev) => ({
+			...prev,
+			confirmPassword:
+				text !== confirmPassword ? "Passwords do not match." : null,
+		}));
+	};
+
+	const handleConfirmPasswordChange = (text) => {
+		setConfirmPassword(text);
+		setErrors((prev) => ({
+			...prev,
+			confirmPassword:
+				createPassword !== text ? "Passwords do not match." : null,
+		}));
+	};
 
 	return (
 		<ScrollView style={styles.scrollView}>
@@ -53,13 +139,29 @@ const SignUp = () => {
 					<View style={styles.backButton}></View>
 				</View>
 				<View style={styles.contentContainer}>
-					<InputField label="Username" placeholder="Username" icon={userIcon} />
+					<InputField
+						label="Username"
+						placeholder="Username"
+						icon={userIcon}
+						value={username}
+						onChangeText={(text) => {
+							setUsername(text);
+							setErrors((prev) => ({ ...prev, username: null }));
+						}}
+						keyboardType="text"
+						error={errors.username}
+					/>
 					<View style={styles.row}>
 						<View style={styles.rowItem}>
 							<InputField
 								label="First Name"
 								placeholder="First Name"
 								icon={userIcon}
+								value={firstName}
+								onChangeText={(text) => {
+									setFirstName(text);
+									setErrors((prev) => ({ ...prev, firstName: null }));
+								}}
 							/>
 						</View>
 						<View style={styles.rowItem}>
@@ -67,6 +169,11 @@ const SignUp = () => {
 								label="Last Name"
 								placeholder="Last Name"
 								icon={userIcon}
+								value={lastName}
+								onChangeText={(text) => {
+									setLastName(text);
+									setErrors((prev) => ({ ...prev, lastName: null }));
+								}}
 							/>
 						</View>
 					</View>
@@ -78,36 +185,52 @@ const SignUp = () => {
 							</View>
 							<Text style={styles.countryCode}>+237</Text>
 							<TextInput
-								placeholder="600 000 000"
+								placeholder="6xx xxx xxx"
 								style={styles.textInput}
 								placeholderTextColor="#676666"
 								keyboardType="phone-pad"
+								value={phoneNumber}
+								onChangeText={(text) => {
+									setPhoneNumber(text);
+									setErrors((prev) => ({ ...prev, phoneNumber: null }));
+								}}
 							/>
 						</View>
+						{errors.phoneNumber && (
+							<Text style={styles.errorText}>{errors.phoneNumber}</Text>
+						)}
 					</View>
 					<InputField
 						label="Plate Number"
 						placeholder="Plate Number"
 						icon={numberIcon}
+						value={plateNumber}
+						onChangeText={(text) => {
+							setPlateNumber(text);
+							setErrors((prev) => ({ ...prev, plateNumber: null }));
+						}}
+						error={errors.plateNumber}
 					/>
 					<InputField
 						label="Create Password"
 						placeholder="Create Password"
 						icon={passwordIcon}
 						secureTextEntry
+						value={createPassword}
+						onChangeText={handlePasswordChange}
 					/>
 					<InputField
 						label="Confirm Password"
 						placeholder="Confirm Password"
 						icon={passwordIcon}
 						secureTextEntry
+						value={confirmPassword}
+						onChangeText={handleConfirmPasswordChange}
+						error={errors.confirmPassword}
 					/>
 				</View>
 				<View style={styles.buttonContainer}>
-					<Pressable
-						onPress={() => navigation.replace("SignIn")}
-						style={styles.submitButton}
-					>
+					<Pressable onPress={handleSubmit} style={styles.submitButton}>
 						<Text style={styles.submitText}>Continue to Sign In</Text>
 					</Pressable>
 				</View>
@@ -183,7 +306,6 @@ const styles = StyleSheet.create({
 	iconContainer: {
 		width: 20,
 		height: 20,
-		// marginRight: 8,
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
@@ -216,5 +338,10 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: "600",
 		color: "#1C2129",
+	},
+	errorText: {
+		color: "red",
+		fontSize: 14,
+		marginTop: 4,
 	},
 });
