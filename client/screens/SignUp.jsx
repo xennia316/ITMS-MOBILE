@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	View,
 	Text,
@@ -17,58 +17,57 @@ import passwordIcon from "../assets/icons/password.png";
 
 const SignUp = () => {
 	const navigation = useNavigation();
+
+	const InputField = ({
+		label,
+		placeholder,
+		icon,
+		keyboardType = "default",
+		secureTextEntry = false,
+	}) => (
+		<View style={styles.inputContainer}>
+			<Text style={styles.inputFieldText}>{label}</Text>
+			<View style={styles.inputField}>
+				<View style={styles.iconContainer}>
+					<Image style={styles.icon} source={icon} />
+				</View>
+				<TextInput
+					placeholder={placeholder}
+					style={styles.textInput}
+					placeholderTextColor="#676666"
+					keyboardType={keyboardType}
+					secureTextEntry={secureTextEntry}
+				/>
+			</View>
+		</View>
+	);
+
 	return (
 		<ScrollView style={styles.scrollView}>
 			<View style={styles.container}>
 				<View style={styles.header}>
 					<Pressable onPress={() => navigation.navigate("Home")}>
-						<View style={styles.backButton}>
-							<Image style={styles.backButton} source={backIcon} />
-						</View>
+						<Image style={styles.backButton} source={backIcon} />
 					</Pressable>
 					<Text style={styles.title}>Sign Up</Text>
 					<View style={styles.backButton}></View>
 				</View>
 				<View style={styles.contentContainer}>
-					<View style={styles.inputContainer}>
-						<Text style={styles.inputFieldText}>Username</Text>
-						<View style={styles.inputField}>
-							<View style={styles.iconContainer}>
-								<Image style={styles.icon} source={userIcon} />
-							</View>
-							<TextInput
-								placeholder="Username"
-								style={styles.textInput}
-								placeholderTextColor="#676666"
+					<InputField label="Username" placeholder="Username" icon={userIcon} />
+					<View style={styles.row}>
+						<View style={styles.rowItem}>
+							<InputField
+								label="First Name"
+								placeholder="First Name"
+								icon={userIcon}
 							/>
 						</View>
-					</View>
-					<View className="flex-row w-full justify-between">
-						<View className="flex-col w-12/25 gap-y-2">
-							<Text style={styles.inputFieldText}>First Name</Text>
-							<View style={styles.inputField}>
-								<View style={styles.iconContainer}>
-									<Image style={styles.icon} source={userIcon} />
-								</View>
-								<TextInput
-									placeholder="First Name"
-									style={styles.textInput}
-									placeholderTextColor="#676666"
-								/>
-							</View>
-						</View>
-						<View className="flex-col w-12/25 gap-y-2">
-							<Text style={styles.inputFieldText}>Last Name</Text>
-							<View style={styles.inputField}>
-								<View style={styles.iconContainer}>
-									<Image style={styles.icon} source={userIcon} />
-								</View>
-								<TextInput
-									placeholder="Last Name"
-									style={styles.textInput}
-									placeholderTextColor="#676666"
-								/>
-							</View>
+						<View style={styles.rowItem}>
+							<InputField
+								label="Last Name"
+								placeholder="Last Name"
+								icon={userIcon}
+							/>
 						</View>
 					</View>
 					<View style={styles.inputContainer}>
@@ -77,7 +76,7 @@ const SignUp = () => {
 							<View style={styles.iconContainer}>
 								<Image style={styles.icon} source={flag} />
 							</View>
-							<Text className="text-lg color-white pl-2">+237</Text>
+							<Text style={styles.countryCode}>+237</Text>
 							<TextInput
 								placeholder="600 000 000"
 								style={styles.textInput}
@@ -86,56 +85,30 @@ const SignUp = () => {
 							/>
 						</View>
 					</View>
-					<View style={styles.inputContainer}>
-						<Text style={styles.inputFieldText}>Plate Number</Text>
-						<View style={styles.inputField}>
-							<View style={styles.iconContainer}>
-								<Image style={styles.icon} source={numberIcon} />
-							</View>
-							<TextInput
-								placeholder="Plate Number"
-								style={styles.textInput}
-								placeholderTextColor="#676666"
-							/>
-						</View>
-					</View>
-					<View style={styles.inputContainer}>
-						<Text style={styles.inputFieldText}>Create Password</Text>
-						<View style={styles.inputField}>
-							<View style={styles.iconContainer}>
-								<Image style={styles.icon} source={passwordIcon} />
-							</View>
-							<TextInput
-								placeholder="Create Password"
-								style={styles.textInput}
-								placeholderTextColor="#676666"
-								type="password"
-							/>
-						</View>
-					</View>
-					<View style={styles.inputContainer}>
-						<Text style={styles.inputFieldText}>Confirm Password</Text>
-						<View style={styles.inputField}>
-							<View style={styles.iconContainer}>
-								<Image style={styles.icon} source={passwordIcon} />
-							</View>
-							<TextInput
-								placeholder="Confirm Password"
-								style={styles.textInput}
-								placeholderTextColor="#676666"
-								type="password"
-							/>
-						</View>
-					</View>
+					<InputField
+						label="Plate Number"
+						placeholder="Plate Number"
+						icon={numberIcon}
+					/>
+					<InputField
+						label="Create Password"
+						placeholder="Create Password"
+						icon={passwordIcon}
+						secureTextEntry
+					/>
+					<InputField
+						label="Confirm Password"
+						placeholder="Confirm Password"
+						icon={passwordIcon}
+						secureTextEntry
+					/>
 				</View>
 				<View style={styles.buttonContainer}>
 					<Pressable
 						onPress={() => navigation.replace("SignIn")}
 						style={styles.submitButton}
 					>
-						<Text className="text-xl font-semibold color-[#1C2129]">
-							Continue to Sign In
-						</Text>
+						<Text style={styles.submitText}>Continue to Sign In</Text>
 					</Pressable>
 				</View>
 			</View>
@@ -149,43 +122,44 @@ const styles = StyleSheet.create({
 	scrollView: {
 		backgroundColor: "#1C2129",
 		flex: 1,
-		position: "relative",
-		height: "100vh",
 	},
 	container: {
 		paddingVertical: "15%",
-		paddingHorizontal: "5%", // Adjust horizontal padding if needed
+		paddingHorizontal: "5%",
 		flex: 1,
-		flexDirection: "column",
 		justifyContent: "space-between",
 		alignItems: "center",
-		height: "100%",
 	},
 	header: {
 		width: "100%",
 		flexDirection: "row",
-		paddingTop: 16,
-		paddingBottom: 16,
+		paddingVertical: 16,
 		justifyContent: "space-between",
+		alignItems: "center",
 	},
 	backButton: {
 		width: 36,
 		height: 36,
-		alignItems: "center",
-		justifyContent: "center",
 	},
 	title: {
 		fontSize: 32,
 		color: "white",
-		fontWeight: "semibold",
+		fontWeight: "600",
 	},
 	contentContainer: {
-		flexDirection: "column",
-		// justifyContent: "",
+		width: "100%",
 		gap: 24,
 	},
+	row: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		width: "100%",
+	},
+	rowItem: {
+		width: "48%",
+	},
 	inputContainer: {
-		gap: 4,
+		marginBottom: 8,
 	},
 	inputField: {
 		flexDirection: "row",
@@ -198,40 +172,37 @@ const styles = StyleSheet.create({
 	inputFieldText: {
 		color: "white",
 		fontSize: 18,
+		marginBottom: 4,
 	},
 	textInput: {
 		fontSize: 18,
 		color: "white",
-		paddingLeft: 4,
+		paddingLeft: 18,
 		flex: 1,
 	},
 	iconContainer: {
 		width: 20,
 		height: 20,
-		marginRight: 8,
-		justifyContent: "center",
+		// marginRight: 8,
+		flexDirection: "row",
 		alignItems: "center",
+		justifyContent: "center",
 	},
 	icon: {
 		height: "100%",
-		objectFit: "contain",
-	},
-	phoneNumberContainer: {
-		flexDirection: "row",
-		alignItems: "center",
+		resizeMode: "contain",
+		alignSelf: "flex-start",
 	},
 	countryCode: {
-		marginRight: 8,
 		fontSize: 18,
 		color: "white",
+		marginLeft: 8,
 	},
 	buttonContainer: {
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
-		height: "20%",
-		position: "absolute",
-		bottom: -120,
+		marginTop: 16,
 	},
 	submitButton: {
 		backgroundColor: "white",
@@ -239,12 +210,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		padding: 14,
 		borderRadius: 100,
-		marginVertical: 4,
 		width: "90%",
 	},
 	submitText: {
 		fontSize: 16,
-		fontWeight: "semibold",
+		fontWeight: "600",
 		color: "#1C2129",
 	},
 });

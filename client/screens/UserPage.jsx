@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		padding: 16,
 		borderBottomColor: "#333",
-		borderBottomWidth: 1,
+		// borderBottomWidth: 1,
 	},
 	sectionItemText: {
 		flex: 1,
