@@ -2,11 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
-
-const AuthRouter = require("./routes/Auth.route");
-
 const app = express();
 app.use(cors());
+const AuthRouter = require("./routes/Auth.route");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
