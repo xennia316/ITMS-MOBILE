@@ -76,7 +76,7 @@ const SignUp = () => {
         plateNumber,
         password: createPassword,
       };
-      await signIn(formData);
+      await signUp(formData);
     }
   };
 

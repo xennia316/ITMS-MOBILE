@@ -1,10 +1,9 @@
 import axios from "axios";
 
 export const signUp = async (data) => {
-  console.log(data);
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/auth/signup",
+      "http://10.0.0.118:5000/api/auth/signup",
       data,
       {
         headers: {
@@ -14,14 +13,14 @@ export const signUp = async (data) => {
     );
     return response;
   } catch (err) {
-    console.log("Error: ", err);
+    console.log("Error: ", err.message);
   }
 };
 
 export const signIn = async (data) => {
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/auth/sign-in",
+      "http://10.0.0.118:5000/api/auth/sign-in",
       data,
       {
         headers: {
