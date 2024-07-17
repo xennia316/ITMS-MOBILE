@@ -1,53 +1,108 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import BottomNav from "../components/BottomNav";
+import LocationData from "../car_analysis_results.json";
 
-const LandingPage = () => {
-	const [trafficLightStatus, setTrafficLightStatus] = useState("red"); // Initialize with "red" or any default status
-	const [countdown, setCountdown] = useState(10); // Initialize countdown with 10 seconds
+const LandingPage = ({ route }) => {
+	const { location } = route.params;
+	const [trafficLightStatus, setTrafficLightStatus] = useState("red");
+	const [countdown, setCountdown] = useState(10);
+	const [road, setRoad] = useState("Unknown Road");
+	const [roadData, setRoadData] = useState(null);
 
-	// Simulate traffic light status change
-	useEffect(() => {
-		const statuses = ["red", "yellow", "green"];
-		let currentIndex = 0;
+	const determineRoad = (latitude, longitude) => {
+		const northRoad = {
+			latMin: 37.79,
+			latMax: 37.8,
+			lonMin: -122.41,
+			lonMax: -122.4,
+		};
+		const eastRoad = {
+			latMin: 37.78,
+			latMax: 37.79,
+			lonMin: -122.4,
+			lonMax: -122.39,
+		};
+		const westRoad = {
+			latMin: 37.78,
+			latMax: 37.79,
+			lonMin: -122.42,
+			lonMax: -122.4,
+		};
+		const southRoad = {
+			latMin: 37.77,
+			latMax: 37.78,
+			lonMin: -122.41,
+			lonMax: -122.4,
+		};
 
-		const interval = setInterval(() => {
-			setTrafficLightStatus(statuses[currentIndex]);
-			setCountdown(10); // Reset countdown when status changes
-			currentIndex = (currentIndex + 1) % statuses.length;
-		}, 10000); // Change status every 10 seconds
-
-		return () => clearInterval(interval);
-	}, []);
-
-	// Countdown logic
-	useEffect(() => {
-		if (countdown > 0) {
-			const timer = setInterval(() => {
-				setCountdown((prev) => prev - 1);
-			}, 1000); // Update countdown every 1 second
-
-			return () => clearInterval(timer);
+		if (
+			latitude >= northRoad.latMin &&
+			latitude <= northRoad.latMax &&
+			longitude >= northRoad.lonMin &&
+			longitude <= northRoad.lonMax
+		) {
+			return "North Road";
+		} else if (
+			latitude >= eastRoad.latMin &&
+			latitude <= eastRoad.latMax &&
+			longitude >= eastRoad.lonMin &&
+			longitude <= eastRoad.lonMax
+		) {
+			return "East Road";
+		} else if (
+			latitude >= westRoad.latMin &&
+			latitude <= westRoad.latMax &&
+			longitude >= westRoad.lonMin &&
+			longitude <= westRoad.lonMax
+		) {
+			return "West Road";
+		} else if (
+			latitude >= southRoad.latMin &&
+			latitude <= southRoad.latMax &&
+			longitude >= southRoad.lonMin &&
+			longitude <= southRoad.lonMax
+		) {
+			return "South Road";
+		} else {
+			return "Unknown Road";
 		}
-	}, [countdown]);
+	};
 
-	const entries = [
-		{
-			title: "Parameter",
-			content: [
-				"Number of cars",
-				"Speed of cars (kmph)",
-				"Distance between cars (metres)",
-			],
-		},
-		{ title: "Value", content: ["Entry 2.1", "Entry 2.2", "Entry 2.3"] },
-	];
+	useEffect(() => {
+		const { latitude, longitude } = location.coords;
+		const determinedRoad = determineRoad(latitude, longitude);
+		setRoad(determinedRoad);
+		const data = LocationData.find((item) => item.location === determinedRoad);
+		setRoadData(data);
+		setTrafficLightStatus(
+			data ? data.traffic_light_state.toLowerCase() : "red"
+		);
+		setCountdown(10);
+	}, [location]);
+
+	useEffect(() => {
+		if (roadData) {
+			const interval = setInterval(() => {
+				if (countdown <= 2) {
+					setTrafficLightStatus("yellow");
+				}
+				setCountdown((prev) => prev - 1);
+				if (countdown <= 0) {
+					setTrafficLightStatus(roadData.traffic_light_state.toLowerCase());
+					setCountdown(10);
+				}
+			}, 1000);
+
+			return () => clearInterval(interval);
+		}
+	}, [countdown, roadData]);
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
 				<Text style={styles.topText}>
-					Location: <Text style={styles.location}>Sandpit</Text>
+					Location: <Text style={styles.location}>{road}</Text>
 				</Text>
 				<View style={styles.trafficLight}>
 					<View
@@ -71,18 +126,26 @@ const LandingPage = () => {
 				</View>
 			</View>
 			<Text style={styles.countdown}>{countdown}s</Text>
-			<View style={styles.statistics}>
-				{entries.map((column, index) => (
-					<View key={index} style={styles.column}>
-						<Text style={[styles.cell, styles.title]}>{column.title}</Text>
-						{column.content.map((entry, idx) => (
-							<Text key={idx} style={styles.cell}>
-								{entry}
-							</Text>
-						))}
+			{roadData && (
+				<View style={styles.statistics}>
+					<View style={styles.column}>
+						<Text style={[styles.cell, styles.title]}>Parameter</Text>
+						<Text style={styles.cell}>Number of cars</Text>
+						<Text style={styles.cell}>Speed of cars (kmph)</Text>
+						<Text style={styles.cell}>Distance between cars (km)</Text>
 					</View>
-				))}
-			</View>
+					<View style={styles.column}>
+						<Text style={[styles.cell, styles.title]}>Value</Text>
+						<Text style={styles.cell}>{roadData.total_cars}</Text>
+						<Text style={styles.cell}>
+							{roadData.average_speed_kmph.toFixed(2)}
+						</Text>
+						<Text style={styles.cell}>
+							{roadData.average_distance_between_cars_km.toFixed(2)}
+						</Text>
+					</View>
+				</View>
+			)}
 			<BottomNav />
 		</View>
 	);
