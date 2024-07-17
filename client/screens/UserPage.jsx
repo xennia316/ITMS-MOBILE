@@ -23,9 +23,9 @@ const UserPage = () => {
 					style={styles.profileImage}
 				/>
 				<View style={styles.profileInfo}>
-					<Text style={styles.profileName}>Peter Aduku</Text>
-					<Text style={styles.profileEmail}>username</Text>
-					<Text style={styles.profileNumber}>license number</Text>
+					<Text style={styles.profileName}>Sonia Amehmbo</Text>
+					<Text style={styles.profileEmail}>soso123</Text>
+					<Text style={styles.profileNumber}>SW123AB</Text>
 				</View>
 				<FontAwesomeIcon icon={faChevronRight} size={20} color="#fff" />
 			</View>
