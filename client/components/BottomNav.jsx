@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -7,20 +7,22 @@ import {
 	faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
+import { LocationContext } from "../context/LocationContext";
 
 const BottomNav = () => {
 	const navigation = useNavigation();
 	const [activeItem, setActiveItem] = useState("trafficLight");
+	const { location } = useContext(LocationContext);
 
 	const items = [
 		{ id: "trafficLight", icon: faTrafficLight, route: "LandingPage" },
-		{ id: "locationDot", icon: faLocationDot, route: "LocationPage" },
+		{ id: "locationDot", icon: faLocationDot, route: "LandingPage" },
 		{ id: "user", icon: faUserCircle, route: "UserPage" },
 	];
 
 	const handlePress = (item) => {
 		setActiveItem(item.id);
-		navigation.replace(item.route);
+		navigation.navigate(item.route, { location });
 	};
 
 	return (

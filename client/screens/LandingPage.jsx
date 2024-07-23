@@ -12,28 +12,28 @@ const LandingPage = ({ route }) => {
 
 	const determineRoad = (latitude, longitude) => {
 		const northRoad = {
-			latMin: 37.79,
-			latMax: 37.8,
-			lonMin: -122.41,
-			lonMax: -122.4,
+			latMin: 0.0,
+			latMax: 90.0,
+			lonMin: -180.0,
+			lonMax: 180.0,
 		};
 		const eastRoad = {
-			latMin: 37.78,
-			latMax: 37.79,
-			lonMin: -122.4,
-			lonMax: -122.39,
+			latMin: -90.0,
+			latMax: 90.0,
+			lonMin: 0.0,
+			lonMax: 180.0,
 		};
 		const westRoad = {
-			latMin: 37.78,
-			latMax: 37.79,
-			lonMin: -122.42,
-			lonMax: -122.4,
+			latMin: -90.0,
+			latMax: 90.0,
+			lonMin: -180.0,
+			lonMax: 0.0,
 		};
 		const southRoad = {
-			latMin: 37.77,
-			latMax: 37.78,
-			lonMin: -122.41,
-			lonMax: -122.4,
+			latMin: -90.0,
+			latMax: 0.0,
+			lonMin: -180.0,
+			lonMax: 180.0,
 		};
 
 		if (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	View,
 	Text,
@@ -7,15 +7,37 @@ import {
 	TextInput,
 	StyleSheet,
 	ScrollView,
+	ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import backIcon from "../assets/icons/arrowleft.png";
 import userIcon from "../assets/icons/Vector.png";
 import passwordIcon from "../assets/icons/password.png";
 import InputField from "../components/InputField";
+import { signIn } from "../API/API";
 
 const SignIn = () => {
 	const navigation = useNavigation();
+	const [loading, setLoading] = useState(false); // Loading state
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+
+	const handleSubmit = async () => {
+		setLoading(true);
+		try {
+			const res = await signIn({ username, password });
+
+			res && res.status === 200 ? navigation.navigate("EnableLocation") : "";
+		} catch (err) {
+			console.log(err);
+		}
+
+		// Simulate a network request
+		// setTimeout(() => {
+		// 	setLoading(false);
+		// 	navigation.navigate("EnableLocation");
+		// }, 2000); // Replace this with your API call
+	};
 
 	return (
 		<ScrollView
@@ -31,20 +53,33 @@ const SignIn = () => {
 					<View style={styles.backButton}></View>
 				</View>
 				<View style={styles.contentContainer}>
-					<InputField label="Username" placeholder="Username" icon={userIcon} />
+					<InputField
+						label="Username"
+						placeholder="Username"
+						icon={userIcon}
+						value={username}
+						onChangeText={(text) => setUsername(text)}
+					/>
 					<InputField
 						label="Password"
 						placeholder="Password"
 						icon={passwordIcon}
 						secureTextEntry
+						value={password}
+						onChangeText={(text) => setPassword(text)}
 					/>
 				</View>
 				<View style={styles.buttonContainer}>
 					<Pressable
-						onPress={() => navigation.navigate("EnableLocation")}
+						onPress={handleSubmit}
 						style={styles.submitButton}
+						disabled={loading}
 					>
-						<Text style={styles.submitText}>Continue to App</Text>
+						{loading ? (
+							<ActivityIndicator size="small" color="#1C2129" />
+						) : (
+							<Text style={styles.submitText}>Continue to App</Text>
+						)}
 					</Pressable>
 				</View>
 			</View>

@@ -1,12 +1,13 @@
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
+import { LocationContext } from "../context/LocationContext";
 
 const EnableLocation = () => {
-	const [location, setLocation] = useState(null);
+	const { setLocation } = useContext(LocationContext);
 	const [errorMsg, setErrorMsg] = useState(null);
 	const navigation = useNavigation();
 
@@ -19,14 +20,12 @@ const EnableLocation = () => {
 
 		let location = await Location.getCurrentPositionAsync({});
 		setLocation(location);
-		navigation.navigate("LandingPage", { location });
+		navigation.navigate("LandingPage");
 	};
 
 	let locationText = "Waiting..";
 	if (errorMsg) {
 		locationText = errorMsg;
-	} else if (location) {
-		locationText = `Latitude: ${location.coords.latitude}, Longitude: ${location.coords.longitude}`;
 	}
 
 	return (
