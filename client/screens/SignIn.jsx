@@ -15,6 +15,7 @@ import userIcon from "../assets/icons/Vector.png";
 import passwordIcon from "../assets/icons/password.png";
 import InputField from "../components/InputField";
 import { signIn } from "../API/API";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const SignIn = () => {
 	const navigation = useNavigation();
@@ -26,10 +27,11 @@ const SignIn = () => {
 		setLoading(true);
 		try {
 			const res = await signIn({ username, password });
-
 			res && res.status === 200 ? navigation.navigate("EnableLocation") : "";
 		} catch (err) {
 			console.log(err);
+		} finally {
+			setLoading(false);
 		}
 
 		// Simulate a network request

@@ -16,7 +16,6 @@ const SignUp = async (req, res) => {
 			.from("users")
 			.select()
 			.eq("user_name", username);
-
 		if (data.length === 0) {
 			const { data, error } = await supabase.from("users").insert([
 				{

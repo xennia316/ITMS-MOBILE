@@ -87,7 +87,7 @@ const SignUp = () => {
 
 				console.log(res.status, "This is the response");
 
-				res && res.status === 201 ? navigation.navigate("EnableLocation") : "";
+				res && res.status === 201 ? navigation.navigate("SignIn") : "";
 			} catch (error) {
 				console.error(error);
 			} finally {
