@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import BottomNav from "../components/BottomNav";
 import LocationData from "../car_analysis_results.json";
+import { LocationContext } from "../context/LocationContext";
 
-const LandingPage = ({ route }) => {
-	const { location } = route.params;
+const LandingPage = () => {
+	const { location } = useContext(LocationContext);
 	const [trafficLightStatus, setTrafficLightStatus] = useState("red");
 	const [countdown, setCountdown] = useState(10);
 	const [road, setRoad] = useState("Unknown Road");
