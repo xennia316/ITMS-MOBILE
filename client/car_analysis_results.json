@@ -1,34 +1,34 @@
 [
-	{
-		"csv_file": "./road1.csv",
-		"location": "North Road",
-		"total_cars": 6,
-		"average_speed_kmph": 4474.532829778872,
-		"average_distance_between_cars_km": 0.1853031831965124,
-		"traffic_light_state": "Green"
-	},
-	{
-		"csv_file": "./road2.csv",
-		"location": "East Road",
-		"total_cars": 4,
-		"average_speed_kmph": 0.0,
-		"average_distance_between_cars_km": 0.2742034126879077,
-		"traffic_light_state": "Red"
-	},
-	{
-		"csv_file": "./road3.csv",
-		"location": "West Road",
-		"total_cars": 2,
-		"average_speed_kmph": 0.0,
-		"average_distance_between_cars_km": 0.06326883853569369,
-		"traffic_light_state": "Red"
-	},
-	{
-		"csv_file": "./road4.csv",
-		"location": "South Road",
-		"total_cars": 5,
-		"average_speed_kmph": 2367.3723418871386,
-		"average_distance_between_cars_km": 0.2391339679589153,
-		"traffic_light_state": "Green"
-	}
+    {
+        "csv_file": "./adminRepo/road1.csv",
+        "location": "North Road",
+        "total_cars": 5,
+        "average_speed_kmph": 6918.7155839922925,
+        "average_distance_between_cars_km": 0.18051953265565343,
+        "traffic_light_state": "Green"
+    },
+    {
+        "csv_file": "./adminRepo/road2.csv",
+        "location": "East Road",
+        "total_cars": 2,
+        "average_speed_kmph": 0.0,
+        "average_distance_between_cars_km": 0.4488810614945778,
+        "traffic_light_state": "Red"
+    },
+    {
+        "csv_file": "./adminRepo/road3.csv",
+        "location": "West Road",
+        "total_cars": 1,
+        "average_speed_kmph": 0.0,
+        "average_distance_between_cars_km": 0,
+        "traffic_light_state": "Red"
+    },
+    {
+        "csv_file": "./adminRepo/road4.csv",
+        "location": "South Road",
+        "total_cars": 4,
+        "average_speed_kmph": 2035.864485374368,
+        "average_distance_between_cars_km": 0.17626247764912115,
+        "traffic_light_state": "Green"
+    }
 ]

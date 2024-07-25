@@ -66,7 +66,7 @@ const UserPage = () => {
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.sectionItem}>
 					<FontAwesomeIcon icon={faBug} size={24} color="#80F17E" />
-					<Text style={styles.sectionItemText}>Report a bug</Text>
+					<Text style={styles.sectionItemText}>Report something</Text>
 					<FontAwesomeIcon icon={faChevronRight} size={20} color="#fff" />
 				</TouchableOpacity>
 			</View>
