@@ -12,20 +12,22 @@ import {
 	faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import BottomNav from "../components/BottomNav";
+import { useUser } from "../content/UserContext";
+import profilePic from "../assets/mh.jpg";
 
 const UserPage = () => {
+	const { user } = useUser();
 	return (
 		<View style={styles.container}>
 			<Text style={styles.header}>My Profile</Text>
 			<View style={styles.profileSection}>
-				<Image
-					source={{ uri: "https://via.placeholder.com/100" }}
-					style={styles.profileImage}
-				/>
+				<Image source={profilePic} style={styles.profileImage} />
 				<View style={styles.profileInfo}>
-					<Text style={styles.profileName}>Sonia Amehmbo</Text>
-					<Text style={styles.profileEmail}>soso123</Text>
-					<Text style={styles.profileNumber}>SW123AB</Text>
+					<Text style={styles.profileName}>
+						{user.first_name} {user.last_name}
+					</Text>
+					<Text style={styles.profileEmail}>{user.user_name}</Text>
+					<Text style={styles.profileNumber}>{user.plate_number}</Text>
 				</View>
 				<FontAwesomeIcon icon={faChevronRight} size={20} color="#fff" />
 			</View>
@@ -66,7 +68,7 @@ const UserPage = () => {
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.sectionItem}>
 					<FontAwesomeIcon icon={faBug} size={24} color="#80F17E" />
-					<Text style={styles.sectionItemText}>Report something</Text>
+					<Text style={styles.sectionItemText}>Report a bug</Text>
 					<FontAwesomeIcon icon={faChevronRight} size={20} color="#fff" />
 				</TouchableOpacity>
 			</View>
@@ -105,7 +107,8 @@ const styles = StyleSheet.create({
 	profileImage: {
 		width: 60,
 		height: 60,
-		borderRadius: 30,
+		borderRadius: 100,
+		objectFit: "cover",
 	},
 	profileInfo: {
 		marginLeft: 16,

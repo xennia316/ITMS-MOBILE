@@ -5,8 +5,9 @@ import {
 	Image,
 	Pressable,
 	TextInput,
+	StyleSheet,
 	ScrollView,
-	TouchableOpacity,
+	ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import backIcon from "../assets/icons/arrowleft.png";
@@ -15,29 +16,28 @@ import passwordIcon from "../assets/icons/password.png";
 import InputField from "../components/InputField";
 import { signIn } from "../API/API";
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../content/UserContext";
 
 const SignIn = () => {
 	const navigation = useNavigation();
 	const [loading, setLoading] = useState(false); // Loading state
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const { setUser } = useUser();
 
 	const handleSubmit = async () => {
 		setLoading(true);
 		try {
 			const res = await signIn({ username, password });
-			res && res.status === 200 ? navigation.navigate("EnableLocation") : "";
+			if (res && res.status === 200) {
+				setUser(res.data);
+				navigation.navigate("EnableLocation");
+			}
 		} catch (err) {
 			console.log(err);
 		} finally {
 			setLoading(false);
 		}
-
-		// Simulate a network request
-		// setTimeout(() => {
-		// 	setLoading(false);
-		// 	navigation.navigate("EnableLocation");
-		// }, 2000); // Replace this with your API call
 	};
 
 	return (
