@@ -5,9 +5,8 @@ import {
 	Image,
 	Pressable,
 	TextInput,
-	StyleSheet,
 	ScrollView,
-	ActivityIndicator,
+	TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import backIcon from "../assets/icons/arrowleft.png";
