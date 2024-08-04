@@ -7,6 +7,9 @@ import Home from "../screens/Home";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
 import LandingPage from "../screens/LandingPage";
+import UserPage from "../screens/UserPage";
+import EnableLocation from "../screens/EnableLocation";
+import { LocationProvider } from "../context/LocationContext.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,11 +40,6 @@ const AppNavigator = () => {
 				<Stack.Screen
 					name="SignIn"
 					component={SignIn}
-					options={{ headerShown: false }}
-				/>
-				<Stack.Screen
-					name="Landing"
-					component={LandingPage}
 					options={{ headerShown: false }}
 				/>
 			</Stack.Navigator>
